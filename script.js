@@ -14,6 +14,18 @@ const topicSelect = document.querySelector("#workshop-topic")
 // БЛОК 5.1
 // Получите строку из localStorage. Если она существует, вызовите JSON.parse,
 // верните три значения в поля и обновите result и localStorageStatus.
+const savedJson = localStorage.getItem(STORAGE_KEY)
+
+if (savedJson) {
+  const savedApp = JSON.parse(savedJson)
+
+  nameInput.value = savedApp.name
+  emailInput.value = savedApp.email
+  topicSelect.value = savedApp.topic
+
+  result.textContent = "Черновик восстановлен"
+  localStorageStatus.textContent = "Найден сохраненный черновик"
+}
 
 
 // БЛОКИ 1–4
@@ -60,10 +72,19 @@ form.addEventListener("submit", (event) => {
 
 
   // 5.3: сохраните ту же строку в sessionStorage и обновите sessionStorageStatus.
+  sessionStorage.setItem(STORAGE_KEY, applicationJson)
+  sessionStorageStatus.textContent = "Копия существует до закрытия вкладки"
 })
 
 
 // БЛОК 5.2
 clearButton.addEventListener("click", () => {
   // Удалите обе записи, сбросьте форму и обновите три сообщения на странице.
+  localStorage.removeItem(STORAGE_KEY)
+  sessionStorage.removeItem(STORAGE_KEY)
+  form.reset()
+
+  result.textContent = "Черновик удален"
+  localStorageStatus.textContent = "Локального черновика нет"
+  sessionStorageStatus.textContent = "Сессионной копии нет"
 })
