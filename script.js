@@ -43,12 +43,20 @@ form.addEventListener("submit", (event) => {
 
 
   // 4.1: объедините три значения в объект application.
-
+  const application = {
+    name,
+    email,
+    topic,
+  }
+  console.log(application)
 
   // 4.2: превратите application в строку applicationJson.
-
+  const applicationJson = JSON.stringify(application)
+  console.log(application, applicationJson)
 
   // 4.3: сохраните строку в localStorage и обновите localStorageStatus.
+  localStorage.setItem(STORAGE_KEY, applicationJson)
+  localStorageStatus.textContent = "Черновик сохранен"
 
 
   // 5.3: сохраните ту же строку в sessionStorage и обновите sessionStorageStatus.
